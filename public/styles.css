@@ -1,0 +1,146 @@
+:root {
+  --card-border: rgba(148, 163, 184, 0.2);
+  --card-bg: rgba(15, 23, 42, 0.7);
+  --accent: #7c3aed;
+  --accent-soft: rgba(124, 58, 237, 0.12);
+  --text-soft: #cbd5e1;
+}
+
+body {
+  background: linear-gradient(180deg, #020817 0%, #111827 100%);
+  color: #f8fafc;
+}
+
+main.container {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.page-header h1 {
+  margin-bottom: 0.75rem;
+}
+
+.eyebrow {
+  color: #c4b5fd;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.venue-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.venue-card {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.venue-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(167, 139, 250, 0.8);
+}
+
+.venue-card img {
+  height: 220px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.venue-card-content {
+  padding: 1.2rem;
+}
+
+.venue-card-content h2 {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 1.3rem;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+.venue-card p {
+  margin: 0.9rem 0 0;
+  color: var(--text-soft);
+}
+
+.detail-page {
+  padding-top: 2rem;
+}
+
+.detail-card {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.5rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.detail-card img {
+  min-height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.detail-content {
+  padding: 2rem;
+}
+
+.summary {
+  font-size: 1.05rem;
+  color: #e2e8f0;
+}
+
+.detail-content dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.detail-content dt {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a5b4fc;
+}
+
+.detail-content dd {
+  margin: 0.35rem 0 0;
+  line-height: 1.5;
+}
+
+.not-found {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .detail-card {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "listicle-app",
+  "version": "1.0.0",
+  "description": "A list-based web app for discovering local music venues",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "express",
+    "listicle",
+    "picocss"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
