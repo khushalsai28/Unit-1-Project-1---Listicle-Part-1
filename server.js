@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { pool, query } = require('./db');
+const { initializeDatabase } = require('./db/initialize');
 const seedVenues = require('./db/venues');
 
 const app = express();
@@ -185,6 +186,18 @@ app.use((req, res) => {
   res.status(404).send(renderNotFoundPage());
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+async function startServer() {
+  if (pool) {
+    await initializeDatabase();
+    console.log('PostgreSQL schema and venue data are ready.');
+  }
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
+
+startServer().catch((error) => {
+  console.error('Unable to start the app:', error.message);
+  process.exitCode = 1;
 });

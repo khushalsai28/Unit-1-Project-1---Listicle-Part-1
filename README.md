@@ -22,7 +22,7 @@ The project uses a vanilla HTML, CSS, and JavaScript frontend with an Express AP
 
 Create a PostgreSQL database on Render and copy its **Internal Database URL** into the `DATABASE_URL` environment variable for the web service. For local development, set `DATABASE_URL` in your shell to a PostgreSQL connection string. Do not commit database credentials. Without a database URL, local development serves the same sample records from `db/venues.js`; production always reads from PostgreSQL.
 
-Run the schema and seed scripts once after configuring the URL:
+The server creates the table and seeds the sample venues on startup when `DATABASE_URL` is configured. To run the same idempotent setup manually:
 
 ```sh
 npm install
