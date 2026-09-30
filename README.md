@@ -20,7 +20,7 @@ The project uses a vanilla HTML, CSS, and JavaScript frontend with an Express AP
 
 ## Database Setup
 
-Create a PostgreSQL database on Render and copy its **Internal Database URL** into the `DATABASE_URL` environment variable for the web service. For local development, set `DATABASE_URL` in your shell to a PostgreSQL connection string. Do not commit database credentials.
+Create a PostgreSQL database on Render and copy its **Internal Database URL** into the `DATABASE_URL` environment variable for the web service. For local development, set `DATABASE_URL` in your shell to a PostgreSQL connection string. Do not commit database credentials. Without a database URL, local development serves the same sample records from `db/venues.js`; production always reads from PostgreSQL.
 
 Run the schema and seed scripts once after configuring the URL:
 
@@ -30,7 +30,7 @@ npm run db:setup
 npm run dev
 ```
 
-`db/schema.sql` creates the `venues` table and `db/seed.sql` inserts the six sample venues. The setup script is safe to rerun: existing slugs are not inserted a second time. The Render web service should use `npm start` as its start command and have the same `DATABASE_URL` configured.
+`db/schema.sql` creates the `venues` table and `db/venues.js` supplies the six sample venues for both local development and database seeding. The setup script is safe to rerun: existing slugs are not inserted a second time. The Render web service should use `npm start` as its start command and have the same `DATABASE_URL` configured.
 
 The API reads list data from `GET /api/items` and detail data from `GET /api/items/:slug`. Pass `?search=...` to the list endpoint to match venue name, genre, or location.
 

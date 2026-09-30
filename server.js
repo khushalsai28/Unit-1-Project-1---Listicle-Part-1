@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
-const { query } = require('./db');
+const { pool, query } = require('./db');
+const seedVenues = require('./db/venues');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const useLocalSeed = !pool && process.env.NODE_ENV !== 'production';
 const venueFields = `
   id, slug, name, genre, price, event_date AS date, venue, location, image, summary, lineup,
   description`;
@@ -11,6 +13,15 @@ const venueFields = `
 function escapeHTML(value) {
   const entities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   return String(value).replace(/[&<>"']/g, (character) => entities[character]);
+}
+
+function findLocalVenues(search = '') {
+  const normalizedSearch = search.toLowerCase();
+  return seedVenues.filter((venue) =>
+    [venue.name, venue.genre, venue.location].some((value) =>
+      value.toLowerCase().includes(normalizedSearch)
+    )
+  );
 }
 
 function renderNotFoundPage(message = 'Page not found') {
@@ -104,6 +115,9 @@ app.get('/', (req, res) => {
 
 app.get('/api/items', async (req, res) => {
   const search = String(req.query.search || '').trim();
+  if (useLocalSeed) {
+    return res.json(findLocalVenues(search));
+  }
 
   try {
     const result = await query(
@@ -120,6 +134,11 @@ app.get('/api/items', async (req, res) => {
 });
 
 app.get('/api/items/:slug', async (req, res) => {
+  if (useLocalSeed) {
+    const venue = seedVenues.find((item) => item.slug === req.params.slug);
+    return venue ? res.json(venue) : res.status(404).json({ message: 'Venue not found' });
+  }
+
   try {
     const result = await query(
       `SELECT ${venueFields} FROM venues WHERE slug = $1`,
@@ -136,6 +155,13 @@ app.get('/api/items/:slug', async (req, res) => {
 });
 
 async function sendVenuePage(req, res) {
+  if (useLocalSeed) {
+    const venue = seedVenues.find((item) => item.slug === req.params.slug);
+    return venue
+      ? res.send(renderDetailPage(venue))
+      : res.status(404).send(renderNotFoundPage('Venue not found'));
+  }
+
   try {
     const result = await query(
       `SELECT ${venueFields} FROM venues WHERE slug = $1`,
