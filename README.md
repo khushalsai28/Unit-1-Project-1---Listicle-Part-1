@@ -1,4 +1,4 @@
-# WEB103 Project 1 - City Pulse Guide
+# WEB103 Unit 1 & 2: Listicle Part 1 and Part 2 - Individual
 
 Submitted by: Khushal Sai kolagani
 
@@ -6,28 +6,33 @@ About this web app: This app is a music venue guide that helps users discover lo
 
 Time spent: 20 hours
 
-## Required Features
+## Project Features
 
-The following required functionality is completed:
+The project uses a vanilla HTML, CSS, and JavaScript frontend with an Express API backed by PostgreSQL.
 
-- [x] **The web app uses only HTML, CSS, and JavaScript without a frontend framework**
-- [x] **The web app displays a title**
-- [x] **The web app displays at least five unique list items, each with at least three displayed attributes (such as title, text, and image)**
-- [x] **The user can click on each item in the list to see a detailed view of it, including all database fields**
-  - [x] **Each detail view should be a unique endpoint, such as `localhost:3000/bosses/crystalguardian` and `localhost:3000/mantislords`**
-  - [x] *Note: When showing this feature in the video walkthrough, please show the unique URL for each detailed view. We will not be able to give points if we cannot see the implementation*
-- [x] **The web app serves an appropriate 404 page when no matching route is defined**
-- [x] **The web app is styled using Picocss**
+- [x] Frontend uses HTML, CSS, and JavaScript without a framework
+- [x] Venue list and detail pages are read from a PostgreSQL database
+- [x] Database table has a unique slug and fields for each venue attribute
+- [x] At least five seeded venue records are displayed
+- [x] Search filters by venue name, genre, or location
+- [x] Detail pages use unique URLs and unknown venues receive a 404 page
+- [x] App is styled using PicoCSS
 
-The following optional features are implemented:
+## Database Setup
 
-- [x] The web app displays items in a unique format, such as cards rather than lists or animated list items
+Create a PostgreSQL database on Render and copy its **Internal Database URL** into the `DATABASE_URL` environment variable for the web service. For local development, set `DATABASE_URL` in your shell to a PostgreSQL connection string. Do not commit database credentials.
 
-The following additional features are implemented:
+Run the schema and seed scripts once after configuring the URL:
 
-- [x] Responsive card layout for the homepage
-- [x] Express API endpoint to serve venue data dynamically
-- [x] Custom detail pages with venue-specific metadata and descriptions
+```sh
+npm install
+npm run db:setup
+npm run dev
+```
+
+`db/schema.sql` creates the `venues` table and `db/seed.sql` inserts the six sample venues. The setup script is safe to rerun: existing slugs are not inserted a second time. The Render web service should use `npm start` as its start command and have the same `DATABASE_URL` configured.
+
+The API reads list data from `GET /api/items` and detail data from `GET /api/items/:slug`. Pass `?search=...` to the list endpoint to match venue name, genre, or location.
 
 ## Video Walkthrough
 

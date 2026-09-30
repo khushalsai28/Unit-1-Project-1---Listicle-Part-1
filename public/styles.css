@@ -25,6 +25,28 @@ main.container {
   margin-bottom: 0.75rem;
 }
 
+.venue-search {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 680px;
+  margin: 0 auto 1.5rem;
+}
+
+.venue-search input {
+  margin-bottom: 0;
+}
+
+.venue-search button {
+  width: auto;
+  white-space: nowrap;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-soft);
+}
+
 .eyebrow {
   color: #c4b5fd;
   font-size: 0.8rem;
@@ -140,7 +162,21 @@ main.container {
 }
 
 @media (max-width: 768px) {
+  .venue-search {
+    align-items: stretch;
+  }
+
   .detail-card {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .venue-search {
+    flex-direction: column;
+  }
+
+  .venue-search button {
+    width: 100%;
   }
 }
